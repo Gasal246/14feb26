@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Valentines: A Romantic Card Game with a Surprise Proposal",
+  title: "4 Lulu - 14Feb26",
   description:
     "Play a unique Valentine's card game. Complete the collection to reveal a romantic proposal!",
   keywords: [
+    "Muhammed Gasal",
+    "Muhammed Gasal Cheerangal",
     "Valentine's card game",
     "romantic proposal game",
     "photo card challenge",
