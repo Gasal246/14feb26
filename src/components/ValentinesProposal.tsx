@@ -9,7 +9,7 @@ const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
 });
 
-// 36 images
+// Available photos in /public/game-photos
 const images = [
   "/game-photos/1.JPG",
   "/game-photos/2.JPG",
@@ -28,26 +28,14 @@ const images = [
   "/game-photos/15.JPG",
   "/game-photos/16.JPG",
   "/game-photos/17.JPG",
-  "/game-photos/18.JPG",
+  "/game-photos/18.PNG",
   "/game-photos/19.JPG",
   "/game-photos/20.JPG",
-  "/game-photos/21.JPG",
-  "/game-photos/22.JPG",
-  "/game-photos/23.JPG",
-  "/game-photos/24.JPG",
-  "/game-photos/25.JPG",
-  "/game-photos/26.JPG",
-  "/game-photos/27.JPG",
-  "/game-photos/28.JPG",
-  "/game-photos/29.JPG",
-  "/game-photos/30.JPG",
-  "/game-photos/31.JPG",
-  "/game-photos/32.JPG",
-  "/game-photos/33.JPG",
-  "/game-photos/34.JPG",
-  "/game-photos/35.JPG",
-  "/game-photos/36.JPG",
 ];
+const backgroundGridImages = Array.from(
+  { length: 36 },
+  (_, index) => images[index % images.length],
+);
 
 export default function ValentinesProposal() {
   const [step, setStep] = useState(0);
@@ -117,7 +105,7 @@ export default function ValentinesProposal() {
           >
             {/* Image Grid Background */}
             <div className="absolute inset-0 grid grid-cols-6 opacity-10">
-              {images.slice(0, 36).map((src, index) => (
+              {backgroundGridImages.map((src, index) => (
                 <div key={index} className="relative h-full">
                   <Image
                     src={src}

@@ -23,19 +23,32 @@ const images = [
   "/game-photos/15.JPG",
   "/game-photos/16.JPG",
   "/game-photos/17.JPG",
-  "/game-photos/18.JPG",
+  "/game-photos/18.PNG",
 ];
 
 // Create 18 pairs of images (36 images in total)
 const imagePairs = images.flatMap((image) => [image, image]);
 
-const shuffleArray = (array: string[]) => {
+const createSeededRandom = (seed: number) => {
+  let value = seed;
+  return () => {
+    value |= 0;
+    value = (value + 0x6d2b79f5) | 0;
+    let t = Math.imul(value ^ (value >>> 15), 1 | value);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
+const shuffleArray = (array: string[], seed: number) => {
+  const random = createSeededRandom(seed);
   for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
 };
+const shuffledImagePairs = shuffleArray([...imagePairs], 20260214);
 
 const heartLayout = [
   [null, null, 0, 1, null, 2, 3, null, null],
@@ -57,7 +70,7 @@ export default function PhotoPairGame({
   const [selected, setSelected] = useState<number[]>([]);
   const [matched, setMatched] = useState<number[]>([]);
   const [incorrect, setIncorrect] = useState<number[]>([]);
-  const [images] = useState(() => shuffleArray([...imagePairs]));
+  const images = shuffledImagePairs;
 
   const handleClick = async (index: number) => {
     if (selected.length === 2 || matched.includes(index) || selected.includes(index)) return;
